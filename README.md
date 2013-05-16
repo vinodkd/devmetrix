@@ -23,11 +23,11 @@ Using DevMetrix
 
 Status
 ------
-The current implementation will load up only the first file mentioned in `sources.csv`.
+Basic working version 1.0 available.
 
 Todos
 -----
-[ ] Fix such that all files in sources.csv can be loaded
+[X] Fix such that all files in sources.csv can be loaded
 [ ] Create tools to manipulate data instead of current manual steps.
 
 Credits

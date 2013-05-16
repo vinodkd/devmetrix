@@ -17,17 +17,31 @@ var bgColor = d3.scale.ordinal()
 
 var borderColor = d3.scale.category20c();
 
-var treemap = d3.layout.treemap()
-    .size([width, height])
-    .sticky(true)
-    .value(function(d) { 
-      return d.size; 
-    });
+var fileList;
 
 d3.csv("data/sources.csv", function (d) {
   return { name: d.name, filePath: d.filePath};
 },
 function (error,data) {
+  fileList = d3.nest()
+                .key(function(d){ return d.name; })
+                .map(data,d3.map)
+                ;
+
+  var list = d3.select("#codebase").append("select");
+  list.selectAll("option")
+    .data(fileList.keys())
+    .enter()
+    .append("option")
+    .attr("value", function(d){ return d; })
+    .text(function(d){ return d; })
+  ;
+
+  list.on("change", function change(){
+    var currSrc = fileList.get(this.value)[0];
+    loadCRData(currSrc.name,currSrc.filePath);
+  });
+
   loadCRData(data[0].name, data[0].filePath);
 });
 
@@ -37,6 +51,18 @@ function loadCRData(name, filePath){
     }, 
     function(error,data){
       var json = convertToJSON(data);
+
+      // clear any existing treemap
+      div.selectAll(".node")
+        .data([])
+        .exit().remove();
+
+      var treemap = d3.layout.treemap()
+          .size([width, height])
+          .sticky(true)
+          .value(function(d) { 
+            return d.size; 
+          });
 
       var node = div.datum(json).selectAll(".node")
           .data(treemap.nodes)
@@ -72,7 +98,7 @@ function loadCRData(name, filePath){
     var totals = calcTotals(json);
     var ratio = totals.known / (totals.known + totals.unknown) * 100;
 
-    d3.select("#codebase").text(name);
+    // d3.select("#codebase").text(name);
     d3.select("#ratio").text(ratio.toFixed(2));
     d3.select("#numKnown").text(totals.known);
     d3.select("#numUnknown").text(totals.unknown);
