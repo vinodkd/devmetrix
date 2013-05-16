@@ -7,6 +7,7 @@ var bgColor, borderColor; // CR treemap level globals
 
 setGlobals();
 initContainer();
+initTreemap();
 function setGlobals () {
   margin = {top: 40, right: 10, bottom: 10, left: 0},
     width = 960 - margin.left - margin.right,
@@ -32,17 +33,27 @@ function initContainer () {
     .style("top", margin.top + "px");
 }
 
-var fileList;
+function initTreemap(){
+  d3.csv("data/sources.csv", function (d) {
+    return { name: d.name, filePath: d.filePath};
+  },
+  function (error,data) {
+    var fileList = mapNameToFile(data);
+    setupCodeBaseSelector(fileList);    
+    // initialize the display with the first codebase
+    showCRStatus(data[0]);
+  });
+}
 
-d3.csv("data/sources.csv", function (d) {
-  return { name: d.name, filePath: d.filePath};
-},
-function (error,data) {
-  fileList = d3.nest()
-                .key(function(d){ return d.name; })
-                .map(data,d3.map)
-                ;
+function mapNameToFile (data) {
+  return d3.nest()
+              .key(function(d){ return d.name; })
+              .map(data,d3.map)
+          ;
+}
 
+function setupCodeBaseSelector (fileList) {
+  // initialize the drop down
   var list = d3.select("#codebase").append("select");
   list.selectAll("option")
     .data(fileList.keys())
@@ -52,10 +63,12 @@ function (error,data) {
     .text(function(d){ return d; })
   ;
 
+  // setup listener for user choice
   list.on("change", function change(){
     var currSrc = fileList.get(this.value)[0];
     loadCRData(currSrc.name,currSrc.filePath);
   });
+}
 
   loadCRData(data[0].name, data[0].filePath);
 });
