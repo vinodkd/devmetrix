@@ -2,6 +2,7 @@
 
 // globals
 var margin, width, height, BORDERWIDTH;  // CR container level global attributes
+var container;  // CR container itself.
 var bgColor, borderColor; // CR treemap level globals
 
 setGlobals();
@@ -18,9 +19,9 @@ function setGlobals () {
 
   borderColor = d3.scale.category20c();
 
+  container = d3.select("#container");
 }
 
-var div = d3.select("#container")
     .style("position", "relative")
     .style("width", (width + margin.left + margin.right) + "px")
     .style("height", (height + margin.top + margin.bottom) + "px")
