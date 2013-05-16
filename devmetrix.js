@@ -6,6 +6,7 @@ var container;  // CR container itself.
 var bgColor, borderColor; // CR treemap level globals
 
 setGlobals();
+initContainer();
 function setGlobals () {
   margin = {top: 40, right: 10, bottom: 10, left: 0},
     width = 960 - margin.left - margin.right,
@@ -22,11 +23,14 @@ function setGlobals () {
   container = d3.select("#container");
 }
 
+function initContainer () {
+  container
     .style("position", "relative")
     .style("width", (width + margin.left + margin.right) + "px")
     .style("height", (height + margin.top + margin.bottom) + "px")
     .style("left", margin.left + "px")
     .style("top", margin.top + "px");
+}
 
 var bgColor = d3.scale.ordinal()
               .domain([0,1])
