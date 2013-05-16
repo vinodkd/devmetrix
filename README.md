@@ -30,6 +30,7 @@ Todos
 
 - [X] Fix such that all files in sources.csv can be loaded
 - [ ] Create tools to manipulate data instead of current manual steps.
+- [X] refactor devmetrix.js to make it more understandable - steps made into functions etc.
 
 Credits
 -------
