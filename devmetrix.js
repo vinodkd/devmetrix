@@ -1,10 +1,24 @@
 // devmetrix.js: all the devmetrix logic
 
-var margin = {top: 40, right: 10, bottom: 10, left: 0},
+// globals
+var margin, width, height, BORDERWIDTH;  // CR container level global attributes
+var bgColor, borderColor; // CR treemap level globals
+
+setGlobals();
+function setGlobals () {
+  margin = {top: 40, right: 10, bottom: 10, left: 0},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
-var BORDERWIDTH = 1;  // change this to control width of the borders of all divs.
+  BORDERWIDTH = 1;  // change this to control width of the borders of all divs.
+  
+  bgColor = d3.scale.ordinal()
+                .domain([0,1])
+                .range(['red', 'green']);
+
+  borderColor = d3.scale.category20c();
+
+}
 
 var div = d3.select("#container")
     .style("position", "relative")
