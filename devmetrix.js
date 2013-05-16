@@ -66,14 +66,12 @@ function setupCodeBaseSelector (fileList) {
   // setup listener for user choice
   list.on("change", function change(){
     var currSrc = fileList.get(this.value)[0];
-    loadCRData(currSrc.name,currSrc.filePath);
+    showCRStatus(currSrc);
   });
 }
 
-  loadCRData(data[0].name, data[0].filePath);
-});
-
-function loadCRData(name, filePath){
+function showCRStatus(src){
+  var filePath = src.filePath;
   d3.csv(filePath,function(d){
       return { filePath:d.filePath, size: + d.size, known: +d.known };
     }, 
