@@ -27,8 +27,9 @@ Basic working version 1.0 available.
 
 Todos
 -----
-[X] Fix such that all files in sources.csv can be loaded
-[ ] Create tools to manipulate data instead of current manual steps.
+
+- [X] Fix such that all files in sources.csv can be loaded
+- [ ] Create tools to manipulate data instead of current manual steps.
 
 Credits
 -------
