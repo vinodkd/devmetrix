@@ -7,6 +7,9 @@ Visualization: Code Reading
 ---------------------------
 The Code Reading visualization shows the current status of a Code Reading activity by a Dev team. Given a codebase - as represented by its list of files - and a status for each such file - known/unknown, this visualization will show a treemap of those files with the size of the file as its physical dimensions and a red/green color representing the status.
 
+Here's a sample:
+<img src="cr_ss.png"/>
+
 Using DevMetrix
 ---------------
 
