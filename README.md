@@ -21,9 +21,14 @@ Using DevMetrix
 	3. Add a reference to this file in `sources.csv`. A sample is in `sources.csv.sample`.
 3. Load up `index.html` via a web server.
 
-Status/ Todos
--------------
+Status
+------
 The current implementation will load up only the first file mentioned in `sources.csv`.
+
+Todos
+-----
+[ ] Fix such that all files in sources.csv can be loaded
+[ ] Create tools to manipulate data instead of current manual steps.
 
 Credits
 -------
