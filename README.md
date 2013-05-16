@@ -15,7 +15,7 @@ Using DevMetrix
 ---------------
 
 1. Clone this repo. Its dependent `d3.js` is already in `lib`.
-2. Create your data file. This is mostly "borrowed" from [CodeFlower's dataConverter.js](https://github.com/fzaninotto/CodeFlower/blob/master/javascripts/dataConverter.js) and has this general pattern:
+2. Create your data file. This is mostly "borrowed" from [CodeFlower's dataConverter.js](https://github.com/fzaninotto/CodeFlower/blob/master/javascripts/dataConverter.js) and has these general steps:
 	1. Do a `find <dir> <opts> | xargs wc -l > data/output.txt` to get the basic data.
 	2. Switch the columns around so that it looks like `data/data.csv.sample`. The additional column `known` has to be currently hand filled with a 0 or a 1 (for unknown vs known).
 	3. Add a reference to this file in `sources.csv`. A sample is in `sources.csv.sample`.
