@@ -8,6 +8,7 @@ var bgColor, borderColor; // CR treemap level globals
 setGlobals();
 initContainer();
 initTreemap();
+
 function setGlobals () {
   margin = {top: 40, right: 10, bottom: 10, left: 0},
     width = 960 - margin.left - margin.right,
@@ -78,58 +79,69 @@ function showCRStatus(src){
     function(error,data){
       var json = convertToJSON(data);
 
-      // clear any existing treemap
-      div.selectAll(".node")
-        .data([])
-        .exit().remove();
-
-      var treemap = d3.layout.treemap()
-          .size([width, height])
-          .sticky(true)
-          .value(function(d) { 
-            return d.size; 
-          });
-
-      var node = div.datum(json).selectAll(".node")
-          .data(treemap.nodes)
-        .enter().append("div")
-          .attr("class", "node")
-          .call(position)
-          .text(function(d) { return d.children ? null : d.name;})
-          .attr("title", function(d) { return d.children ? null : d.filePath;})
-          .style("background", function(d) { 
-            // console.log(d.name + "," + d.known + "," + color(d.known)); 
-            return d.children ? null : bgColor(d.known); 
-          })
-          .style("border", "solid "+ BORDERWIDTH +"px white")
-          // added border as an experiment to show containment but that's more distracting than useful.
-          // .style("border", function(d) { 
-          //   var b = "2px solid " + (d.children ? "" : borderColor(d.parentNode)); 
-          //   console.log(d.name + "," + d.known + "," + d.parentNode + "," + b); 
-          //   return b;
-          // })
-      ;
-
-      // d3.selectAll("input").on("change", function change() {
-      //   var value = this.value === "count"
-      //       ? function() { return 1; }
-      //       : function(d) { return d.size; };
-
-      //   node
-      //       .data(treemap.value(value).nodes)
-      //     .transition()
-      //       .duration(1500)
-      //       .call(position);
-      // });
-    var totals = calcTotals(json);
-    var ratio = totals.known / (totals.known + totals.unknown) * 100;
-
-    // d3.select("#codebase").text(name);
-    d3.select("#ratio").text(ratio.toFixed(2));
-    d3.select("#numKnown").text(totals.known);
-    d3.select("#numUnknown").text(totals.unknown);
+      clearCurrentTreemap();
+      displayNewTreemap(json);
+      refreshHeader(json);
   });
 
+}
+
+function clearCurrentTreemap () {
+  container.selectAll(".node")
+    .data([])
+    .exit().remove();
+}
+
+function displayNewTreemap (json) {
+  var treemap = d3.layout.treemap()
+      .size([width, height])
+      .sticky(true)
+      .value(function(d) { 
+        return d.size; 
+      });
+
+  var node = container.datum(json).selectAll(".node")
+      .data(treemap.nodes)
+    .enter().append("div")
+      .attr("class", "node")
+      .call(position)
+      .text(function(d) { return d.children ? null : d.name;})
+      .attr("title", function(d) { return d.children ? null : d.filePath;})
+      .style("background", function(d) { 
+        // console.log(d.name + "," + d.known + "," + color(d.known)); 
+        return d.children ? null : bgColor(d.known); 
+      })
+      .style("border", "solid "+ BORDERWIDTH +"px white")
+      // added border as an experiment to show containment but that's more distracting than useful.
+      // .style("border", function(d) { 
+      //   var b = "2px solid " + (d.children ? "" : borderColor(d.parentNode)); 
+      //   console.log(d.name + "," + d.known + "," + d.parentNode + "," + b); 
+      //   return b;
+      // })
+  ;
+
+  // d3.selectAll("input").on("change", function change() {
+  //   var value = this.value === "count"
+  //       ? function() { return 1; }
+  //       : function(d) { return d.size; };
+
+  //   node
+  //       .data(treemap.value(value).nodes)
+  //     .transition()
+  //       .duration(1500)
+  //       .call(position);
+  // });
+
+}
+
+function refreshHeader (json) {
+  var totals = calcTotals(json);
+  var ratio = totals.known / (totals.known + totals.unknown) * 100;
+
+  // d3.select("#codebase").text(name);
+  d3.select("#ratio").text(ratio.toFixed(2));
+  d3.select("#numKnown").text(totals.known);
+  d3.select("#numUnknown").text(totals.unknown);
 }
 
 function position() {
