@@ -32,12 +32,6 @@ function initContainer () {
     .style("top", margin.top + "px");
 }
 
-var bgColor = d3.scale.ordinal()
-              .domain([0,1])
-              .range(['red', 'green']);
-
-var borderColor = d3.scale.category20c();
-
 var fileList;
 
 d3.csv("data/sources.csv", function (d) {
