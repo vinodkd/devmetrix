@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+  <title>DevMetrix: metrics for developers by developers</title>
+  <link rel="stylesheet" href="devmetrix.css">
+</head>
+<body>
+<!--
+  Hide for now. Reuse when more attributes are available.
+<form>
+  <label><input type="radio" name="mode" value="size" checked> Size</label>
+  <label><input type="radio" name="mode" value="count"> Count</label>
+</form>
+-->
+<div class="title">DevMetrix</div>
+<div class="codereading">
+  <div class="header">
+      <strong>Code Reading </strong>
+      <span class="header2"> 
+        <span>the &nbsp;</span><span id="codebase" class="codebaseName"></span><span>&nbsp; codebase: </span>
+        <span id="ratio"></span> <span> % done; </span>
+        <span id="numKnown"></span><span> known vs </span>
+        <span id="numUnknown"></span><span> unknown.</span>
+      </span>
+  </div>
+
+  <div id="container"></div>
+
+  <div class="info">Mouse over each block to see the file path</div>
+  <div class="node unknown">Not known</div> <div class="node known">Known</div>
+  
+</div>
+
+<script src="lib/d3.v3.min.js"></script>
+<script src="dataConverter.js"></script>
+<script src="devmetrix.js"></script>
+</body>
+</html>
