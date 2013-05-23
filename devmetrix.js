@@ -36,7 +36,7 @@ function initContainer () {
 
 function initTreemap(){
   d3.csv("data/sources.csv", function (d) {
-    return { name: d.name, filePath: d.filePath};
+    return { name: d.name, filePath: d.filePath, extraInfo: d.extraInfo};
   },
   function (error,data) {
     var fileList = mapNameToFile(data);
@@ -73,6 +73,8 @@ function setupCodeBaseSelector (fileList) {
 
 function showCRStatus(src){
   var filePath = src.filePath;
+  var extraInfo = src.extraInfo;
+
   d3.csv(filePath,function(d){
       return { filePath:d.filePath, size: + d.size, known: +d.known };
     }, 
@@ -82,6 +84,7 @@ function showCRStatus(src){
       clearCurrentTreemap();
       displayNewTreemap(json);
       refreshHeader(json);
+      refreshExtraInfo(extraInfo);
   });
 
 }
@@ -142,6 +145,10 @@ function refreshHeader (json) {
   d3.select("#ratio").text(ratio.toFixed(2));
   d3.select("#numKnown").text(totals.known);
   d3.select("#numUnknown").text(totals.unknown);
+}
+
+function refreshExtraInfo (extraInfo) {
+  d3.select("#extraInfo").text(extraInfo);
 }
 
 function position() {
