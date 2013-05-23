@@ -16,10 +16,6 @@ function setGlobals () {
 
   BORDERWIDTH = 1;  // change this to control width of the borders of all divs.
   
-  cellColor = d3.scale.ordinal()
-                .domain([0,1])
-                .range(['red', 'green']);
-
   borderColor = d3.scale.category20c();
 
   container = d3.select("#container");
@@ -35,14 +31,34 @@ function initContainer () {
 }
 
 function initTreemap(){
-  d3.csv("data/sources.csv", function (d) {
-    return { name: d.name, filePath: d.filePath, extraInfo: d.extraInfo};
-  },
-  function (error,data) {
-    var fileList = mapNameToFile(data);
-    setupCodeBaseSelector(fileList);    
-    // initialize the display with the first codebase
-    showCRStatus(data[0]);
+  // in a synchronous world this function would have the structure below:
+  //    cellColor = getColorScale();  -- read colorscale.json
+  //    sources = getSources();       -- read sources.csv
+  //    setupCodeBaseSelector(sources); 
+  //    showCRStatus(sources[0]);     -- read each data.csv and display it.
+  // since we're not in such a world, however, each step above is nested in the callback for the previous.
+
+  d3.json("data/colorscale.json", function(error,json){
+    if(!error){
+      cellColor = d3.scale.ordinal()
+                .domain(json.values)
+                .range(json.colors);
+    }else{
+      cellColor = d3.scale.ordinal()
+              .domain([0,1])
+              .range(['red', 'green']);
+    }
+
+    d3.csv("data/sources.csv", function (d) {
+      return { name: d.name, filePath: d.filePath, extraInfo: d.extraInfo};
+    },
+    function (error,data) {
+      var fileList = mapNameToFile(data);
+      setupCodeBaseSelector(fileList);    
+      // initialize the display with the first codebase
+      showCRStatus(data[0]);
+    });
+
   });
 }
 
@@ -79,6 +95,8 @@ function showCRStatus(src){
       return { filePath:d.filePath, size: + d.size, known: +d.known };
     }, 
     function(error,data){
+      // debug print that hinted at Chrome's cashing xhr responses
+      console.log(data);
       var json = convertToJSON(data);
 
       clearCurrentTreemap();

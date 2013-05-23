@@ -1,0 +1,5 @@
+{
+	"statuses": ["Not Known", "Partly Known", "Known"],
+	"values": [0, 0.5, 1],
+	"colors": ["red", "orange", "green"]
+}
