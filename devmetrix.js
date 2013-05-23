@@ -3,7 +3,7 @@
 // globals
 var margin, width, height, BORDERWIDTH;  // CR container level global attributes
 var container;  // CR container itself.
-var bgColor, borderColor; // CR treemap level globals
+var cellColor, borderColor; // CR treemap level globals
 
 setGlobals();
 initContainer();
@@ -16,7 +16,7 @@ function setGlobals () {
 
   BORDERWIDTH = 1;  // change this to control width of the borders of all divs.
   
-  bgColor = d3.scale.ordinal()
+  cellColor = d3.scale.ordinal()
                 .domain([0,1])
                 .range(['red', 'green']);
 
@@ -112,7 +112,7 @@ function displayNewTreemap (json) {
       .attr("title", function(d) { return d.children ? null : d.filePath;})
       .style("background", function(d) { 
         // console.log(d.name + "," + d.known + "," + color(d.known)); 
-        return d.children ? null : bgColor(d.known); 
+        return d.children ? null : cellColor(d.known); 
       })
       .style("border", "solid "+ BORDERWIDTH +"px white")
       // added border as an experiment to show containment but that's more distracting than useful.
