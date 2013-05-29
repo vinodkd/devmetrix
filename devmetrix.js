@@ -123,7 +123,8 @@ function clearCurrentTreemap () {
 
 function displayNewTreemap (json) {
   var treemap = d3.layout.treemap()
-      .size([width, height])
+      .size([95,98])  // these are percentage sizes. d3 is truly unit agnostic!
+      .padding(.01)
       .sticky(true)
       .value(function(d) { 
         return d.size; 
@@ -140,7 +141,7 @@ function displayNewTreemap (json) {
         // console.log(d.name + "," + d.known + "," + color(d.known)); 
         return d.children ? null : cellColor(d.known); 
       })
-      .style("border", "solid "+ BORDERWIDTH +"px white")
+      // .style("border", "solid "+ BORDERWIDTH +"px white")
       // added border as an experiment to show containment but that's more distracting than useful.
       // .style("border", function(d) { 
       //   var b = "2px solid " + (d.children ? "" : borderColor(d.parentNode)); 
@@ -178,9 +179,9 @@ function refreshExtraInfo (extraInfo) {
 }
 
 function position() {
-  this.style("left", function(d) { return d.x + "px"; })
-      .style("top", function(d) { return d.y + "px"; })
-      .style("width", function(d) { return Math.max(0, d.dx - BORDERWIDTH) + "px"; })
-      .style("height", function(d) { return Math.max(0, d.dy - BORDERWIDTH) + "px"; });
+  this.style("left", function(d) { return d.x + "%"; })
+      .style("top", function(d) { return d.y + "%"; })
+      .style("width", function(d) { return Math.max(0, d.dx) + "%"; })
+      .style("height", function(d) { return Math.max(0, d.dy) + "%"; });
 }
 
