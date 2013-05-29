@@ -41,7 +41,7 @@ body {
 #container{
   position : relative;
   float : left;
-  width: 80%;
+  width: 90%;
   height: 99%;
   left: 0%;
   top: 0%;
@@ -53,7 +53,7 @@ body {
   float : left;  
   left: 0%;
   top: 0%;
-  width:20%;
+  width:8%;
   height: 99%;
 }
 
