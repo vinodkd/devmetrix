@@ -46,16 +46,19 @@ function initTreemap(){
   //    showCRStatus(sources[0]);     -- read each data.csv and display it.
   // since we're not in such a world, however, each step above is nested in the callback for the previous.
 
+  var value2colorMap = {
+    statuses: ["Unknown", "Known"],
+    values: [0, 1],
+    colors: ['red', 'green']
+  };
+
   d3.json("data/colorscale.json", function(error,json){
     if(!error){
-      cellColor = d3.scale.ordinal()
-                .domain(json.values)
-                .range(json.colors);
-    }else{
-      cellColor = d3.scale.ordinal()
-              .domain([0,1])
-              .range(['red', 'green']);
+      value2colorMap = json;
     }
+    cellColor = d3.scale.ordinal()
+                    .domain(value2colorMap.values)
+                    .range(value2colorMap.colors);
 
     d3.csv("data/sources.csv", function (d) {
       return { name: d.name, filePath: d.filePath, extraInfo: d.extraInfo};
@@ -64,7 +67,7 @@ function initTreemap(){
       var fileList = mapNameToFile(data);
       setupCodeBaseSelector(fileList);    
       // initialize the display with the first codebase
-      showCRStatus(data[0]);
+      showCRStatus(data[0], value2colorMap);
     });
 
   });
@@ -95,7 +98,7 @@ function setupCodeBaseSelector (fileList) {
   });
 }
 
-function showCRStatus(src){
+function showCRStatus(src, value2colorMap){
   var filePath = src.filePath;
   var extraInfo = src.extraInfo;
 
@@ -109,7 +112,7 @@ function showCRStatus(src){
 
       clearCurrentTreemap();
       displayNewTreemap(json);
-      refreshHeader(json);
+      refreshHeader(json,value2colorMap);
       refreshExtraInfo(extraInfo);
   });
 
@@ -163,14 +166,21 @@ function displayNewTreemap (json) {
 
 }
 
-function refreshHeader (json) {
+function refreshHeader (json,value2colorMap) {
   var totals = calcTotals(json);
   var ratio = totals.known / (totals.known + totals.unknown) * 100;
 
-  // d3.select("#codebase").text(name);
-  d3.select("#ratio").text(ratio.toFixed(2));
-  d3.select("#numKnown").text(totals.known);
-  d3.select("#numUnknown").text(totals.unknown);
+  value2colorMap.statuses.forEach(function (s,i){
+    legend.append("div")
+      .append("div")
+        .text(s)
+        .attr("class","ltext lstatus")
+        .attr("background-color", value2colorMap.colors[i])
+      .append("div")
+        .attr("class","ltext lcount")
+        .text("40%")
+      ;
+  });
 }
 
 function refreshExtraInfo (extraInfo) {
