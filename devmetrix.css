@@ -15,6 +15,25 @@ body {
   height:80%;
 }
 
+.title{
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.header{
+  font-size: 18px;
+}
+
+.header2{
+  font-size: 14px;
+}
+
+.codebaseName{
+  font-size: 20px;
+  font-variant: small-caps;
+  font-weight: bold;
+}
+
 .crpanel {
   width: 99%;
   height:90%;
@@ -54,22 +73,10 @@ form {
   border: 1px solid white;
 }
 
-.title{
-  font-size: 36px;
-  font-weight: bold;
 }
 
-.header{
-  font-size: 18px;
 }
 
-.header2{
-  font-size: 14px;
-}
-
-.codebaseName{
-  font-size: 20px;
-  font-variant: small-caps;
   font-weight: bold;
 }
 .info{
