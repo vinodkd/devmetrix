@@ -73,15 +73,25 @@ form {
   border: 1px solid white;
 }
 
+.ltext{
+  opacity: 0.8;
+  font: 10px sans-serif;
+  line-height: 12px;
+  text-indent: 2px;
+  border: 1px solid white;
 }
 
+.lstatus{
+  position: relative;
+  float:left;
+  width:90%;
+  height: 95%;
 }
 
+.lcount{
+  position: relative;
+  float:right;
   font-weight: bold;
+  width:9%;
+  height: 95%;
 }
-.info{
-  font-size: 12px;
-}
-
-.known   {  background-color: green; }
-.unknown {  background-color: red; }
