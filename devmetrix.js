@@ -104,7 +104,7 @@ function showCRStatus(src){
     }, 
     function(error,data){
       // debug print that hinted at Chrome's cashing xhr responses
-      console.log(data);
+      // console.log(data);
       var json = convertToJSON(data);
 
       clearCurrentTreemap();
@@ -125,7 +125,6 @@ function displayNewTreemap (json) {
   var treemap = d3.layout.treemap()
       .size([98,98])  // these are percentage sizes. d3 is truly unit agnostic!
       .padding(.01)
-      .sticky(true)
       .value(function(d) { 
         return d.size; 
       });
