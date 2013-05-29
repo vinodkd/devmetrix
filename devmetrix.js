@@ -123,7 +123,7 @@ function clearCurrentTreemap () {
 
 function displayNewTreemap (json) {
   var treemap = d3.layout.treemap()
-      .size([95,98])  // these are percentage sizes. d3 is truly unit agnostic!
+      .size([98,98])  // these are percentage sizes. d3 is truly unit agnostic!
       .padding(.01)
       .sticky(true)
       .value(function(d) { 
