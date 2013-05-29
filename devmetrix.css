@@ -1,8 +1,33 @@
+html, head, body, .codereading, .crpanel {
+  width: 100%;
+  height:100%;
+}
+
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin: auto;
   position: relative;
-  width: 960px;
+  margin-left: 10px;
+}
+
+
+#container{
+  position : relative;
+  float : left;
+  width: 70%;
+  height: 100%;
+  left: 0%;
+  top: 0%;
+  margin-left : 40px;
+}
+
+#legend{
+  position : relative;
+  float : left;  
+  left: 0%;
+  top: 0%;
+  width:25%;
+  height: 100%;
 }
 
 form {
