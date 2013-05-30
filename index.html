@@ -5,34 +5,27 @@
   <link rel="stylesheet" href="devmetrix.css">
 </head>
 <body>
-<!--
-  Hide for now. Reuse when more attributes are available.
-<form>
-  <label><input type="radio" name="mode" value="size" checked> Size</label>
-  <label><input type="radio" name="mode" value="count"> Count</label>
-</form>
--->
-<div class="title">DevMetrix</div>
-<div class="codereading">
-  <div class="header">
-      <strong>Code Reading </strong>
-      <span class="header2"> 
-        <span>the &nbsp;</span><span id="codebase" class="codebaseName"></span><span>&nbsp; codebase: </span>
-        <span id="numKnown"></span><span> known, </span>
-        <span id="numTotal"></span><span> total.</span>
-      </span>
-      <div id="extraInfo"></div>
+  <div class="title">DevMetrix</div>
+  <div class="codereading">
+    <div class="header">
+        <strong>Code Reading </strong>
+        <span class="header2"> 
+          <span>the &nbsp;</span><span id="codebase" class="codebaseName"></span><span>&nbsp; codebase: </span>
+          <span id="numKnown"></span><span> known, </span>
+          <span id="numTotal"></span><span> total.</span>
+        </span>
+        <div id="extraInfo"></div>
+    </div>
+
+    <div class="crpanel">
+      <div id="container"></div>  
+      <div id="legend"></div>
+    </div>
+    <div class="info">Mouse over each block to see the file path</div>
   </div>
 
-  <div class="crpanel">
-    <div id="container"></div>  
-    <div id="legend"></div>
-  </div>
-  <div class="info">Mouse over each block to see the file path</div>
-</div>
-
-<script src="lib/d3.v3.min.js"></script>
-<script src="dataConverter.js"></script>
-<script src="devmetrix.js"></script>
+  <script src="lib/d3.v3.min.js"></script>
+  <script src="dataConverter.js"></script>
+  <script src="devmetrix.js"></script>
 </body>
 </html>
