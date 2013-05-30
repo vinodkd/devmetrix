@@ -73,15 +73,16 @@ var getChildren = function(json,p) {
 var calcCounts = function(node,value2statusMap){
   // counts for a node is the sum of counts for its children
   // counts for a leaf node is just +1 for one of the statuses
-  var counts = {};
+  var counts = { total: 0 };
   value2statusMap.statuses.forEach(function (s) { counts[s]=0; });
 
   if(node.children){
     // recursively count all children. that is the count for this node
     var ret = node.children.reduce(function(p,v){ // p=previous sum, v=current value
       var vchildCounts = calcCounts(v,value2statusMap);
-      var ret2 = {};
-      value2statusMap.statuses.forEach(function (s) { ret2[s]=p[s] + vchildCounts[s]; });      
+      var ret2 = { total:0 };
+      value2statusMap.statuses.forEach(function (s) { ret2[s]=p[s] + vchildCounts[s]; });
+      for(var k in ret2){  if(k!="total") ret2["total"] += ret2[k];  }
       return ret2;
     },counts);
     return ret;
@@ -89,6 +90,7 @@ var calcCounts = function(node,value2statusMap){
   }else{
     if(node.hasOwnProperty("known")){
       value2statusMap.statuses.forEach(function (s,i) { counts[s]=(node.known == value2statusMap.values[i])? 1: 0; });
+      for(var k in counts) {  if(k!="total") counts["total"] += counts[k];  }
       return counts;
     }
     return counts;

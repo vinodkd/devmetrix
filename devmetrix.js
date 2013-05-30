@@ -183,6 +183,18 @@ function refreshHeader (json,value2colorMap) {
         .text(counts[s])
       ;
   });
+
+  var lline=legend.append("div").attr("class","lline");
+  lline
+    .append("div")
+    .text("Total")
+        .attr("class","ltext lstatus")
+        .style("background", "lightgray");
+  lline
+    .append("div")
+      .attr("class","ltext lcount")
+      .text(counts["total"])
+    ;
 }
 
 function refreshExtraInfo (extraInfo) {
