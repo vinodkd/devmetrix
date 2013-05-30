@@ -113,6 +113,7 @@ function showCRStatus(src, value2colorMap){
       clearCurrentTreemap();
       displayNewTreemap(json);
       var counts = calcCounts(json,value2colorMap);
+      refreshHeader(counts);
       refreshLegend(counts,value2colorMap);
       refreshExtraInfo(extraInfo);
   });
@@ -166,6 +167,11 @@ function displayNewTreemap (json) {
   //       .call(position);
   // });
 
+}
+
+function refreshHeader(counts){
+  d3.select("#numKnown").text(counts["Known"]);
+  d3.select("#numTotal").text(counts["total"]);
 }
 
 function refreshLegend (counts,value2colorMap) {
