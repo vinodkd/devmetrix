@@ -154,19 +154,6 @@ function displayNewTreemap (json) {
       //   return b;
       // })
   ;
-
-  // d3.selectAll("input").on("change", function change() {
-  //   var value = this.value === "count"
-  //       ? function() { return 1; }
-  //       : function(d) { return d.size; };
-
-  //   node
-  //       .data(treemap.value(value).nodes)
-  //     .transition()
-  //       .duration(1500)
-  //       .call(position);
-  // });
-
 }
 
 function refreshHeader(counts){
