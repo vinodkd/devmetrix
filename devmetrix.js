@@ -1,41 +1,17 @@
 // devmetrix.js: all the devmetrix logic
 
 // globals
-var margin, width, height, BORDERWIDTH;  // CR container level global attributes
 var container;  // CR container itself.
 var cellColor, borderColor; // CR treemap level globals
 
 setGlobals();
-initContainer();
 initTreemap();
 
 function setGlobals () {
-  // margin = {top: 40, right: 10, bottom: 10, left: 0},
-  //   width = 700 - margin.left - margin.right,
-  //   height = 500 - margin.top - margin.bottom;
-
-  BORDERWIDTH = 1;  // change this to control width of the borders of all divs.
-  
   borderColor = d3.scale.category20c();
 
   container = d3.select("#container");
   legend = d3.select("#legend");
-}
-
-function initContainer () {
-  // container
-  //   .style("position", "relative")
-  //   .style("float", "left")
-  //   .style("width", (width + margin.left + margin.right) + "px")
-  //   .style("height", (height + margin.top + margin.bottom) + "px")
-  //   .style("left", margin.left + "px")
-  //   .style("top", margin.top + "px");
-
-  // legend
-  //   .style("position", "relative")
-  //   .style("float", "right")
-  //   .style("left", margin.left + "px")
-  //   .style("top", margin.top + "px");
 }
 
 function initTreemap(){
