@@ -112,7 +112,8 @@ function showCRStatus(src, value2colorMap){
 
       clearCurrentTreemap();
       displayNewTreemap(json);
-      refreshHeader(json,value2colorMap);
+      var counts = calcCounts(json,value2colorMap);
+      refreshLegend(counts,value2colorMap);
       refreshExtraInfo(extraInfo);
   });
 
@@ -122,6 +123,7 @@ function clearCurrentTreemap () {
   container.selectAll(".node")
     .data([])
     .exit().remove();
+  legend.selectAll(".lline").remove();
 }
 
 function displayNewTreemap (json) {
@@ -166,10 +168,7 @@ function displayNewTreemap (json) {
 
 }
 
-function refreshHeader (json,value2colorMap) {
-  var counts = calcCounts(json,value2colorMap);
-  // var ratio = totals.known / (totals.known + totals.unknown) * 100;
-
+function refreshLegend (counts,value2colorMap) {
   value2colorMap.statuses.forEach(function (s,i){
     var lline=legend.append("div").attr("class","lline");
     lline
