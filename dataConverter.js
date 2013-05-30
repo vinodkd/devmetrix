@@ -67,29 +67,30 @@ var getChildren = function(json,p) {
 };
 
 
-// calculate total known and unknown objects in tree based on the known attr.
-// if node.known = 1, known++
-// if node.known = 0, unknown++
+// calculate counts for different values of node.known attribute in tree.
+// if node.known = <<val corr. to status1>>, status1++
 
-var calcTotals = function(node){
+var calcCounts = function(node,value2statusMap){
   // counts for a node is the sum of counts for its children
-  // counts for a leaf node is just +1 for one of the two counts
+  // counts for a leaf node is just +1 for one of the statuses
+  var counts = {};
+  value2statusMap.statuses.forEach(function (s) { counts[s]=0; });
+
   if(node.children){
     // recursively count all children. that is the count for this node
-    var totals = { known: 0, unknown: 0};
-    var ret = node.children.reduce(function(p,v){
-      var vchildTotals = calcTotals(v);
-      return {known: p.known+vchildTotals.known, unknown: p.unknown+vchildTotals.unknown};
-    },totals);
+    var ret = node.children.reduce(function(p,v){ // p=previous sum, v=current value
+      var vchildCounts = calcCounts(v,value2statusMap);
+      var ret2 = {};
+      value2statusMap.statuses.forEach(function (s) { ret2[s]=p[s] + vchildCounts[s]; });      
+      return ret2;
+    },counts);
     return ret;
 
   }else{
     if(node.hasOwnProperty("known")){
-      return {
-        known: (node.known == 1) ? 1 : 0,
-        unknown: (node.known == 0) ? 1 : 0
-      }
+      value2statusMap.statuses.forEach(function (s,i) { counts[s]=(node.known == value2statusMap.values[i])? 1: 0; });
+      return counts;
     }
-    return { known: 0, unknown: 0};
+    return counts;
   }
 };

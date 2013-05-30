@@ -167,18 +167,20 @@ function displayNewTreemap (json) {
 }
 
 function refreshHeader (json,value2colorMap) {
-  var totals = calcTotals(json);
-  var ratio = totals.known / (totals.known + totals.unknown) * 100;
+  var counts = calcCounts(json,value2colorMap);
+  // var ratio = totals.known / (totals.known + totals.unknown) * 100;
 
   value2colorMap.statuses.forEach(function (s,i){
-    legend.append("div")
+    var lline=legend.append("div").attr("class","lline");
+    lline
       .append("div")
         .text(s)
         .attr("class","ltext lstatus")
-        .attr("background-color", value2colorMap.colors[i])
+        .style("background", value2colorMap.colors[i]);
+    lline
       .append("div")
         .attr("class","ltext lcount")
-        .text("40%")
+        .text(counts[s])
       ;
   });
 }

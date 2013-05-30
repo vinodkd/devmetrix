@@ -73,6 +73,10 @@ form {
   border: 1px solid white;
 }
 
+.lline {
+  width:95%;
+}
+
 .ltext{
   opacity: 0.8;
   font: 10px sans-serif;
@@ -84,14 +88,16 @@ form {
 .lstatus{
   position: relative;
   float:left;
-  width:90%;
+  top:0; left:0;
+  width:80%;
   height: 95%;
 }
 
 .lcount{
   position: relative;
   float:right;
-  font-weight: bold;
+  top:0; left:0;
+  font-weight: bolder;
   width:9%;
   height: 95%;
 }
