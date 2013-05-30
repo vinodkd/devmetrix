@@ -31,7 +31,7 @@ Using DevMetrix
 
 Status
 ------
-Working version 1.1 available.
+Working version 2.0 available.
 
 Todos
 -----
