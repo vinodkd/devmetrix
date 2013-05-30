@@ -65,7 +65,7 @@ function initTreemap(){
     },
     function (error,data) {
       var fileList = mapNameToFile(data);
-      setupCodeBaseSelector(fileList);    
+      setupCodeBaseSelector(fileList,value2colorMap);    
       // initialize the display with the first codebase
       showCRStatus(data[0], value2colorMap);
     });
@@ -80,7 +80,7 @@ function mapNameToFile (data) {
           ;
 }
 
-function setupCodeBaseSelector (fileList) {
+function setupCodeBaseSelector (fileList,value2colorMap) {
   // initialize the drop down
   var list = d3.select("#codebase").append("select");
   list.selectAll("option")
@@ -94,7 +94,7 @@ function setupCodeBaseSelector (fileList) {
   // setup listener for user choice
   list.on("change", function change(){
     var currSrc = fileList.get(this.value)[0];
-    showCRStatus(currSrc);
+    showCRStatus(currSrc,value2colorMap);
   });
 }
 
